@@ -23,7 +23,7 @@ acen    = (217/255,47/255,39/255)
 stalk   = (100/255,127/255,164/255)
 allchroms=[]
 chosenchrom=[]
-chromosome='chr11'
+chromosome='chr8'
 with open('6nBX6sdE') as f:
     reader = csv.DictReader(f, delimiter='\t')
     for band in reader:
