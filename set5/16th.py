@@ -82,6 +82,12 @@ with open('abstracts.json') as f:
             
             data.append(abstract)
 
+url = 'https://raw.githubusercontent.com/obophenotype/human-phenotype-ontology/master/hp.obo'
+r = requests.get(url)
+obotemp = r.text
+oboclean=obotemp.replace(",", "").replace(".", "").replace('-','').replace('(','').replace(')','').lower()
+obo=list(set(oboclean.split()))
+
 abstracts=[i.replace(",", "").replace(".", "").replace('-','').replace('(','').replace(')','').lower() for i in data]
 temp=[]
 words={}
@@ -94,9 +100,11 @@ for i in range(0,len(temp)-1,2):
 with open('word_cloud.txt','w+') as f:
     for abstract in abstracts:
         for word in abstract.split():
-            if word in words.keys() and words[word]<10000:
-                f.write(word+' ')            
-
+            try:
+                if words[word]<10000 and word in obo:                    
+                    f.write(word+' ')            
+            except:
+                pass
 #################
 ###In terminal###
 #################                
